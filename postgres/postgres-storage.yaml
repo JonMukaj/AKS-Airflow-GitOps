@@ -17,7 +17,8 @@ spec:
 kind: PersistentVolumeClaim 
 apiVersion: v1 
 metadata: 
-  name: postgres-pv-claim 
+  name: postgres-pv-claim
+  namespace: airflow 
   labels: 
     app: postgres 
 spec: 

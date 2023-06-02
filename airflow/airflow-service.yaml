@@ -4,7 +4,7 @@ metadata:
   name: webserver-svc 
   namespace: airflow 
 spec: 
-  type: NodePort 
+  type: LoadBalancer 
   selector: 
     deploy: airflow 
     name: airflow 

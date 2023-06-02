@@ -1,8 +1,13 @@
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: airflow
+---
 kind: Deployment 
 apiVersion: apps/v1 
 metadata: 
   name: airflow 
-  namespace: "airflow" 
+  namespace: airflow 
 spec: 
   replicas: 1 
   selector: 
@@ -34,9 +39,9 @@ spec:
                   name: airflow-config 
                   key: executor 
           volumeMounts: 
-            - name: logs-pv 
+            - name: logs-pv-volume 
               mountPath: /opt/airflow-kubernetes/logs 
-            - name: dags-pv 
+            - name: dags-pv-volume 
               mountPath: /opt/airflow-kubernetes/dags 
           command: 
             - airflow 
@@ -64,9 +69,9 @@ spec:
             - webserver 
       restartPolicy: Always 
       volumes: 
-        - name: dags-pv 
+        - name: dags-pv-volume 
           persistentVolumeClaim: 
-            claimName: dags-pvc 
-        - name: logs-pv 
+            claimName: dags-pv-claim 
+        - name: logs-pv-volume
           persistentVolumeClaim: 
-            claimName: logs-pvc 
+            claimName: logs-pv-claim 

@@ -17,7 +17,8 @@ spec:
 kind: PersistentVolumeClaim 
 apiVersion: v1 
 metadata: 
-  name: logs-pv-claim 
+  name: logs-pv-claim
+  namespace: airflow  
   labels: 
     app: dags 
 spec: 

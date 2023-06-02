@@ -1,8 +1,10 @@
 apiVersion: apps/v1 
-kind: Deployment 
+kind: StatefulSet 
 metadata: 
-  name: postgres 
-spec: 
+  name: postgres
+  namespace: airflow 
+spec:
+  serviceName: "postgres"
   replicas: 1 
   selector: 
     matchLabels: 
@@ -15,7 +17,8 @@ spec:
       containers: 
         - name: postgres 
           image: jmukaj/airflow-postgres:0.1.0
-          imagePullPolicy: "IfNotPresent" 
+          imagePullPolicy: "IfNotPresent"
+          command: ["airflow", "db", "init"]
           ports: 
             - containerPort: 5432 
           envFrom: 
@@ -28,7 +31,3 @@ spec:
         - name: postgredb 
           persistentVolumeClaim: 
             claimName: postgres-pv-claim
-      lifecycle:
-        postStart:
-          exec:
-            command: ["airflow", "db", "init",{{cmd}}]
