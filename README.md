@@ -103,3 +103,52 @@ To access the Airflow UI, open a new terminal and execute the following command
 `kubectl port-forward svc/airflow-webserver 8080:8080 -n airflow`
 
 Then open `http://localhost:8080/` in your browser:
+
+
+# ArgoCD Installation & Integration
+
+1\. Deploy ArgoCD on the Kubernetes Cluster
+-------------------------------------------
+
+Before starting, create a dedicated namespace for Argo CD to deploy all of its components.
+
+`kubectl create namespace argocd`
+
+Install Argo CD in the `argocd` namespace you created. Use the Argo CD's GitHub repository for the latest Argo CD operator. Deploy it using the following command:
+
+
+`kubectl apply -n argocd -f https://raw.githubusercontent.com/argoproj/argo-cd/stable/manifests/install.yaml`
+
+
+2\. Access The Argo CD API Server
+---------------------------------
+
+By default, the Argo CD API server is not exposed with an external IP. To access the API server, change the `argocd-server` service type to `LoadBalancer`:
+
+`kubectl patch svc argocd-server -n argocd -p '{"spec": {"type": "LoadBalancer"}}'`
+
+Check the service:
+
+`kubectl get svc -n argocd`
+
+Then access the UI from browser:
+
+`http://<argocd-server externalip>:port`
+
+3\. Login Using The CLI
+-----------------------
+
+The initial password for the `admin` account is auto-generated and stored as clear text in the field `password` in a secret named `argocd-initial-admin-secret` in your Argo CD installation namespace. You can retrieve this password using `kubectl`:
+
+
+`kubectl -n argocd get secret argocd-initial-admin-secret -o jsonpath="{.data.password}" | base64 -d; echo`
+
+You should delete the `argocd-initial-admin-secret` from the Argo CD namespace once you changed the password. The secret serves no other purpose than to store the initially generated password in clear and can safely be deleted at any time.
+
+
+4\. Deploy the Airflow Application to ArgoCD
+-----------------------
+
+Create a project through the UI of ArgoCD and then deploy the app which will sync the changes on the repo chart to AKS cluster.
+
+`kubectl apply -f argoapp.yaml`

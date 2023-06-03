@@ -1,0 +1,14 @@
+project: airflow
+source:
+  repoURL: 'https://github.com/JonMukaj/airflow-resources'
+  path: airflow
+  targetRevision: HEAD
+  helm:
+    valueFiles:
+      - values.yaml
+destination:
+  server: 'https://kubernetes.default.svc'
+  namespace: airflow
+syncPolicy:
+  automated:
+    selfHeal: true
