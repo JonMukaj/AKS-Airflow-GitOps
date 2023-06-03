@@ -49,9 +49,7 @@ This command will download the credentials and configure your local `kubectl` co
 3\. You can verify the connection to your cluster by running the following command:
 
     ```
-
     kubectl get nodes
-
     ```
 
     This will list the nodes in your cluster. If you see your nodes listed, you are correctly connected to your AKS cluster.
@@ -102,7 +100,7 @@ To access the Airflow UI, open a new terminal and execute the following command
 
 `kubectl port-forward svc/airflow-webserver 8080:8080 -n airflow`
 
-Then open `http://localhost:8080/` in your browser:
+Then open [http://localhost:8080/](http://localhost:8080/) in your browser:
 
 
 # ArgoCD Installation & Integration
