@@ -6,6 +6,7 @@ This guide will help you to create an Azure Resource Group and Azure Kubernetes 
 
 - You should have [Terraform](https://www.terraform.io/downloads.html) installed.
 - You should have [Azure CLI](https://docs.microsoft.com/en-us/cli/azure/install-azure-cli) installed.
+- You should have [Helm](https://helm.sh/docs/intro/install/) installed. 
 - You need to be authenticated to Azure. Use the following guide https://learn.microsoft.com/en-us/azure/developer/terraform/authenticate-to-azure?tabs=bash.
 
 ## Setup
