@@ -85,11 +85,11 @@ After some minutes check the status of your pods:
 
 If you want to use the prepared chart of repo:
 
-`helm upgrade -f values.yaml airflow ./airflow  --namespace airflow --create-namespace --debug`
+`helm upgrade --install -f airflow/values.yaml airflow ./airflow  --namespace airflow --create-namespace --debug`
 
 this will deploy airflow with some predefined DAGs ready for triggering
 
-Configure Airflow on Kubernetes
+Configure Airflow on Kubernetes (Optional)
 -------------------------------
 
 Export the default values for the Apache Airflow Helm chart to a YAML file (or tweak the modified values.yaml which is present in repo):
